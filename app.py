@@ -56,23 +56,29 @@ st.write(star_range_2)
 team_type = st.radio("Choose the teams type", ["Clubs", "National teams", "Both"])
 st.write(team_type)
 
-wynik = []
+def filter_teams(star_range, team_type, teams):
+    matching_teams = []
+    for element in teams:
+        if team_type == "Clubs":
+            matches_type = element["type"] == "club"
+        elif team_type == "National teams":
+            matches_type = element["type"] == "national"
+        else:
+            matches_type = True
+        if element["stars"] >= star_range[0] and element["stars"] <= star_range[1]:
+            matches_star = True
+        else:
+            matches_star = False
+        if matches_star and matches_type == True:
+            matching_teams.append(element)
 
-for element in teams:
-    if team_type == "Clubs":
-        matches_type = element["type"] == "club"
-    elif team_type == "National teams":
-        matches_type = element["type"] == "national"
-    else:
-        matches_type = True
-    if element["stars"] >= star_range_1[0] and element["stars"] <= star_range_1[1]:
-        matches_star = True
-    else:
-        matches_star = False
-    if matches_star and matches_type == True:
-        wynik.append(element)
+    return matching_teams
         
-st.write(wynik)
+team1_options = filter_teams(star_range_1, team_type, teams)
+team2_options = filter_teams(star_range_2, team_type, teams)
+
+st.write(team1_options)
+st.write(team2_options)
 
 
 
