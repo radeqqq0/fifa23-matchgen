@@ -21,7 +21,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("## FIFA 23 RANDOM TEAM GENERATOR")
-clicked = st.button("Click me")
 
 col1, col2 = st.columns(2)
 
@@ -30,31 +29,6 @@ if 'randomteam1' not in st.session_state:
     
 if 'randomteam2' not in st.session_state:
     st.session_state['randomteam2'] = []
-
-def random_team():
-    st.session_state['randomteam1'] = random.choice(["TEAM 1", "TEAM 2", "TEAM 3"])
-    st.session_state['randomteam2'] = random.choice(["TEAM 4", "TEAM 5", "TEAM 6"])
-
-    with col1:
-        st.markdown("#### TEAM 1")
-        st.write(st.session_state['randomteam1'])
-
-    with col2:
-        st.markdown("#### TEAM 2")
-        st.write(st.session_state['randomteam2'])
-
-
-if clicked == True:
-    random_team()
-
-star_range_1 = st.slider(label="Choose the star range of the 1st team", min_value=0.5, max_value=5.0, step=0.5, value=(3.0, 5.0))
-star_range_2 = st.slider(label="Choose the star range of the 2nd team", min_value=0.5, max_value=5.0, step=0.5, value=(3.0, 5.0))
-
-st.write(star_range_1)
-st.write(star_range_2)
-
-team_type = st.radio("Choose the teams type", ["Clubs", "National teams", "Both"])
-st.write(team_type)
 
 def filter_teams(star_range, team_type, teams):
     matching_teams = []
@@ -73,12 +47,37 @@ def filter_teams(star_range, team_type, teams):
             matching_teams.append(element)
 
     return matching_teams
-        
-team1_options = filter_teams(star_range_1, team_type, teams)
-team2_options = filter_teams(star_range_2, team_type, teams)
 
-st.write(team1_options)
-st.write(team2_options)
+def random_team():
+
+    team1_options = filter_teams(star_range_1, team_type, teams)
+    team2_options = filter_teams(star_range_2, team_type, teams)
+
+    if not team1_options or not team2_options:
+        st.error("No teams in selected range")
+    else:
+        st.session_state['randomteam1'] = random.choice(team1_options)
+        st.session_state['randomteam2'] = random.choice(team2_options)
+        
+        with col1:
+            st.markdown("#### TEAM 1")
+            st.write(st.session_state['randomteam1']["name"])
+        
+        with col2:
+            st.markdown("#### TEAM 2")
+            st.write(st.session_state['randomteam2']["name"])
+
+
+star_range_1 = st.slider(label="Choose the star range of the 1st team", min_value=0.5, max_value=5.0, step=0.5, value=(3.0, 5.0))
+star_range_2 = st.slider(label="Choose the star range of the 2nd team", min_value=0.5, max_value=5.0, step=0.5, value=(3.0, 5.0))
+
+team_type = st.radio("Choose the teams type", ["Clubs", "National teams", "Both"])
+st.write(team_type)
+
+clicked = st.button("Generate")
+
+if clicked == True:
+    random_team()
 
 
 
