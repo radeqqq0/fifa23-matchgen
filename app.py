@@ -96,10 +96,13 @@ if 'page' not in st.session_state:
 
 if st.session_state['page'] == "settings":
     st.markdown("## FIFA 23 RANDOM TEAM GENERATOR")
-    star_range_1 = st.slider(label="Choose the star range of the 1st team", min_value=0.5, max_value=5.0, step=0.5, value=(3.0, 5.0))
-    star_range_2 = st.slider(label="Choose the star range of the 2nd team", min_value=0.5, max_value=5.0, step=0.5, value=(3.0, 5.0))
+    star_range_1 = st.slider(label="Choose the star range of the 1st team", min_value=0.5, max_value=5.0, step=0.5, value=st.session_state.get('star_range_1',(3.0, 5.0)))
+    star_range_2 = st.slider(label="Choose the star range of the 2nd team", min_value=0.5, max_value=5.0, step=0.5, value=st.session_state.get('star_range_2',(3.0, 5.0)))
 
-    team_type = st.radio("Choose the teams type", ["Clubs", "National teams", "Both"])
+    saved_team_type = st.session_state.get('team_type', "Clubs")
+    options = ["Clubs", "National teams", "Both"]
+    saved_index = options.index(saved_team_type)
+    team_type = st.radio("Choose the teams type", options, index=saved_index)
 
     clicked = st.button("Randomize")
 
@@ -127,6 +130,7 @@ elif st.session_state['page'] == "result":
 
     if reroll == True:
         random_team()
+        st.rerun()
 
     if comeback == True:
         st.session_state['page'] = "settings"
