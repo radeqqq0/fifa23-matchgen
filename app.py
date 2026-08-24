@@ -1,11 +1,39 @@
 import random
 import streamlit as st
+import pandas as pd
 
-teams = [
-    {"name": "Widzew Łódź", "stars": 2.0, "type": "club"},
-    {"name": "Polska", "stars": 4.0, "type": "national"},
-    {"name": "Legia Warszawa", "stars": 3.5, "type": "club"}
-]
+clubs_df = pd.read_csv("data/clubs.csv", usecols= ['Name', 'Overall', 'League'])
+clubs = clubs_df.to_dict("records")
+
+def ov_to_stars(overall):
+    if overall >= 83:
+        stars = 5
+    elif overall >= 79:
+        stars = 4.5
+    elif overall >= 75:
+        stars = 4
+    elif overall >= 71:
+        stars = 3.5
+    elif overall >= 69:
+        stars = 3
+    elif overall >= 67:
+        stars = 2.5
+    elif overall >= 65:
+        stars = 2
+    elif overall >= 63:
+        stars = 1.5
+    elif overall >= 60:
+        stars = 1
+    else:
+        stars = 0.5
+
+    return stars
+
+clubs_formatted = [] 
+
+for club in clubs:
+    dic = {"name": club["Name"], "division": club["League"], "stars": ov_to_stars(club["Overall"]), "type": "club"}
+    clubs_formatted.append(dic)
 
 st.set_page_config(page_title="FIFA Random Team Generator", layout="centered")
 
@@ -46,8 +74,8 @@ if 'randomteam2' not in st.session_state:
 
 def random_team():
 
-    team1_options = filter_teams(star_range_1, team_type, teams)
-    team2_options = filter_teams(star_range_2, team_type, teams)
+    team1_options = filter_teams(star_range_1, team_type, clubs_formatted)
+    team2_options = filter_teams(star_range_2, team_type, clubs_formatted)
 
     if not team1_options or not team2_options:
         st.error("No teams in selected range")
