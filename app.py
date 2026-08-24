@@ -5,6 +5,9 @@ import pandas as pd
 clubs_df = pd.read_csv("data/clubs.csv", usecols= ['Name', 'Overall', 'League'])
 clubs = clubs_df.to_dict("records")
 
+national_df = pd.read_csv("data/national.csv", usecols= ['Name', 'Overall', 'League'])
+national = national_df.to_dict("records")
+
 def ov_to_stars(overall):
     if overall >= 83:
         stars = 5
@@ -29,11 +32,16 @@ def ov_to_stars(overall):
 
     return stars
 
-clubs_formatted = [] 
+def format_teams(raw_list, team_type):
+    formatted = []
+    for team in raw_list:
+        dic = {"name": team["Name"], "division": team["League"], "stars": ov_to_stars(team["Overall"]), "type": team_type}
+        formatted.append(dic)
+    return formatted
 
-for club in clubs:
-    dic = {"name": club["Name"], "division": club["League"], "stars": ov_to_stars(club["Overall"]), "type": "club"}
-    clubs_formatted.append(dic)
+clubs_formatted = format_teams(clubs, "club")
+national_formatted = format_teams(national, "national")
+all_teams = clubs_formatted + national_formatted
 
 st.set_page_config(page_title="FIFA Random Team Generator", layout="centered")
 
