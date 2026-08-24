@@ -82,8 +82,8 @@ if 'randomteam2' not in st.session_state:
 
 def random_team():
 
-    team1_options = filter_teams(star_range_1, team_type, clubs_formatted)
-    team2_options = filter_teams(star_range_2, team_type, clubs_formatted)
+    team1_options = filter_teams(star_range_1, team_type, all_teams)
+    team2_options = filter_teams(star_range_2, team_type, all_teams)
 
     if not team1_options or not team2_options:
         st.error("No teams in selected range")
