@@ -82,8 +82,8 @@ if 'randomteam2' not in st.session_state:
 
 def random_team():
 
-    team1_options = filter_teams(star_range_1, team_type, all_teams)
-    team2_options = filter_teams(star_range_2, team_type, all_teams)
+    team1_options = filter_teams(st.session_state['star_range_1'], st.session_state['team_type'], all_teams)
+    team2_options = filter_teams(st.session_state['star_range_2'], st.session_state['team_type'], all_teams)
 
     if not team1_options or not team2_options:
         st.error("No teams in selected range")
@@ -104,6 +104,9 @@ if st.session_state['page'] == "settings":
     clicked = st.button("Randomize")
 
     if clicked == True:
+        st.session_state['star_range_1'] = star_range_1
+        st.session_state['star_range_2'] = star_range_2
+        st.session_state['team_type'] = team_type
         random_team()
         st.session_state['page'] = "result"
         st.rerun()
@@ -120,6 +123,10 @@ elif st.session_state['page'] == "result":
         st.write(st.session_state['randomteam2']["name"])
 
     comeback = st.button("Back to settings")
+    reroll = st.button("Reroll teams")
+
+    if reroll == True:
+        random_team()
 
     if comeback == True:
         st.session_state['page'] = "settings"
