@@ -48,6 +48,9 @@ st.set_page_config(page_title="FIFA Random Team Generator", layout="centered")
 st.html('<html lang="en">')
 st.markdown("""
 <style>
+    p { margin: 1px;}
+    .right { text-align: right;}
+    .title { color: gray;}
     .stApp { background: #14161c; color: white; }
     .team { text-align: center; }
     .label { color: #888; font-size: 0.75rem; margin-top: 0.7rem; }
@@ -116,14 +119,25 @@ if st.session_state['page'] == "settings":
 
 elif st.session_state['page'] == "result":
     col1, col2 = st.columns(2)
-
     with col1:
-        st.markdown("#### TEAM 1")
-        st.write(st.session_state['randomteam1']["name"])
+        st.markdown(f'''
+        <div class="left">
+        <p class="title">TEAM NAME</p> <br>
+        <p>{st.session_state['randomteam1']['name']}</p> <br>
+        <p class="title">DIVISION</p> <br>
+        <p>{st.session_state['randomteam1']['division']}</p>
+        </div>
+        ''', unsafe_allow_html=True) 
             
     with col2:
-        st.markdown("#### TEAM 2")
-        st.write(st.session_state['randomteam2']["name"])
+        st.markdown(f'''
+        <div class="right">
+        <p class="title">TEAM NAME</p> <br>
+        <p>{st.session_state['randomteam2']['name']}</p> <br>
+        <p class="title">DIVISION</p> <br>
+        <p>{st.session_state['randomteam2']['division']}</p>
+        </div>
+        ''', unsafe_allow_html=True) 
 
     comeback = st.button("Back to settings")
     reroll = st.button("Reroll teams")
