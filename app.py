@@ -117,7 +117,7 @@ if st.session_state['page'] == "settings":
 
     clicked = st.button("Randomize")
 
-    if clicked == True:
+    if clicked:
         st.session_state['star_range_1'] = star_range_1
         st.session_state['star_range_2'] = star_range_2
         st.session_state['team_type'] = team_type
@@ -157,10 +157,10 @@ elif st.session_state['page'] == "result":
     comeback = st.button("Back to settings")
     reroll = st.button("Reroll teams")
 
-    if reroll == True:
+    if reroll:
         random_team()
         st.rerun()
 
-    if comeback == True:
+    if comeback:
         st.session_state['page'] = "settings"
         st.rerun()
