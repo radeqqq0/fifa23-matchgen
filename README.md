@@ -1,5 +1,8 @@
 # fifa23-matchgen
 A FIFA 23 random team generator built with Python and Streamlit, based on an old version of [fifamatchcreator.com](https://fifamatchcreator.com)
+## Preview
+
+![FIFA 23 Random Team Generator](screenshot.png)
 
 ## Features
 
