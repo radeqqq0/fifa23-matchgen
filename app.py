@@ -57,14 +57,13 @@ st.set_page_config(page_title="FIFA Random Team Generator", layout="centered")
 st.html('<html lang="en">')
 st.markdown("""
 <style>
+    p.stars { color: #f5c518; font-size: 40px; margin-bottom: 20px}
+    p.value { font-weight: 600; }
     p { margin: 1px;}
     .right { text-align: right;}
     .title { color: gray;}
-    .stApp { background: #14161c; color: white; }
     .team { text-align: center; }
     .label { color: #888; font-size: 0.75rem; margin-top: 0.7rem; }
-    .value { font-weight: 800; }
-    .stars { color: #f5c518; font-size: 1.2rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -135,9 +134,9 @@ elif st.session_state['page'] == "result":
         st.markdown(f'''
         <div class="left">
         <p class="title">TEAM NAME</p> <br>
-        <p>{st.session_state['randomteam1']['name']}</p> <br>
+        <p class="value">{st.session_state['randomteam1']['name']}</p> <br>
         <p class="title">DIVISION</p> <br>
-        <p>{st.session_state['randomteam1']['division']}</p> <br>
+        <p class="value">{st.session_state['randomteam1']['division']}</p> <br>
         <p class="title">STAR RATING</p>
         <p class="stars">{stars1}</p>
         </div>
@@ -147,9 +146,9 @@ elif st.session_state['page'] == "result":
         st.markdown(f'''
         <div class="right">
         <p class="title">TEAM NAME</p> <br>
-        <p>{st.session_state['randomteam2']['name']}</p> <br>
+        <p class="value">{st.session_state['randomteam2']['name']}</p> <br>
         <p class="title">DIVISION</p> <br>
-        <p>{st.session_state['randomteam2']['division']}</p> <br>
+        <p class="value">{st.session_state['randomteam2']['division']}</p> <br>
         <p class="title">STAR RATING</p>
         <p class="stars">{stars2}</p>
         </div>
