@@ -32,6 +32,15 @@ def ov_to_stars(overall):
 
     return stars
 
+def stars_to_symbols(stars):
+    if stars % 1 == 0:
+        empty_stars = 5 - int(stars)
+        symbol = int(stars) * "★" + int(empty_stars) * "☆"
+    else:
+        empty_stars = 4 - int(stars)
+        symbol = int(stars) * "★" + "⯪" + int(empty_stars) * "☆"
+    return symbol
+
 def format_teams(raw_list, team_type):
     formatted = []
     for team in raw_list:
@@ -119,13 +128,18 @@ if st.session_state['page'] == "settings":
 
 elif st.session_state['page'] == "result":
     col1, col2 = st.columns(2)
+    stars1 = stars_to_symbols(st.session_state['randomteam1']['stars'])
+    stars2 = stars_to_symbols(st.session_state['randomteam2']['stars'])
+    
     with col1:
         st.markdown(f'''
         <div class="left">
         <p class="title">TEAM NAME</p> <br>
         <p>{st.session_state['randomteam1']['name']}</p> <br>
         <p class="title">DIVISION</p> <br>
-        <p>{st.session_state['randomteam1']['division']}</p>
+        <p>{st.session_state['randomteam1']['division']}</p> <br>
+        <p class="title">STAR RATING</p>
+        <p class="stars">{stars1}</p>
         </div>
         ''', unsafe_allow_html=True) 
             
@@ -135,7 +149,9 @@ elif st.session_state['page'] == "result":
         <p class="title">TEAM NAME</p> <br>
         <p>{st.session_state['randomteam2']['name']}</p> <br>
         <p class="title">DIVISION</p> <br>
-        <p>{st.session_state['randomteam2']['division']}</p>
+        <p>{st.session_state['randomteam2']['division']}</p> <br>
+        <p class="title">STAR RATING</p>
+        <p class="stars">{stars2}</p>
         </div>
         ''', unsafe_allow_html=True) 
 
