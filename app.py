@@ -8,6 +8,14 @@ clubs = clubs_df.to_dict("records")
 national_df = pd.read_csv("data/national.csv", usecols= ['Name', 'Overall', 'League'])
 national = national_df.to_dict("records")
 
+def load_svg(path):
+    with open(path, "r") as f:
+        return f.read()
+
+full = load_svg("assets/full.svg")
+half = load_svg("assets/half.svg")
+empty = load_svg("assets/empty.svg")
+
 def ov_to_stars(overall):
     if overall >= 83:
         stars = 5
@@ -35,10 +43,10 @@ def ov_to_stars(overall):
 def stars_to_symbols(stars):
     if stars % 1 == 0:
         empty_stars = 5 - int(stars)
-        symbol = int(stars) * "★" + int(empty_stars) * "☆"
+        symbol = int(stars) * full + int(empty_stars) * empty
     else:
         empty_stars = 4 - int(stars)
-        symbol = int(stars) * "★" + "⯪" + int(empty_stars) * "☆"
+        symbol = int(stars) * full + half + int(empty_stars) * empty
     return symbol
 
 def format_teams(raw_list, team_type):
@@ -78,13 +86,6 @@ st.markdown("""
         }
     }
     p.stars { color: #f5c518; font-size: 40px; margin-bottom: 20px}
-    p.value { font-weight: 600; }
-    p { margin: 1px;}
-    .right { text-align: right;}
-    .title { color: gray;}
-    .team { text-align: center; }
-    .label { color: #888; font-size: 0.75rem; margin-top: 0.7rem; }
-    p.stars { color: #f5c518; font-size: 20px; margin-bottom: 20px}
     p.value { font-weight: 600; }
     p { margin: 1px;}
     .right { text-align: right;}
