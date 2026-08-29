@@ -57,7 +57,34 @@ st.set_page_config(page_title="FIFA Random Team Generator", layout="centered")
 st.html('<html lang="en">')
 st.markdown("""
 <style>
+    [data-testid="stHorizontalBlock"] {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 0 !important;
+    }
+
+    [data-testid="stColumn"] {
+        width: 50% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    @media (max-width: 600px) {
+        p.value {
+            font-size: 12px;
+        }
+        p.title {
+            font-size: 12px;
+        }
+    }
     p.stars { color: #f5c518; font-size: 40px; margin-bottom: 20px}
+    p.value { font-weight: 600; }
+    p { margin: 1px;}
+    .right { text-align: right;}
+    .title { color: gray;}
+    .team { text-align: center; }
+    .label { color: #888; font-size: 0.75rem; margin-top: 0.7rem; }
+    p.stars { color: #f5c518; font-size: 20px; margin-bottom: 20px}
     p.value { font-weight: 600; }
     p { margin: 1px;}
     .right { text-align: right;}
